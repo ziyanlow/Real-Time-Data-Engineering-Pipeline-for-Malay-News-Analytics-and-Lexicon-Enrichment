@@ -1,0 +1,2 @@
+# Real-Time-Data-Engineering-Pipeline-for-Malay-News-Analytics-and-Lexicon-Enrichment
+This project builds an end-to-end Malay news data pipeline. It integrates Kafka streaming, HDFS, and Spark for ingestion; MongoDB and Neo4j for lexical enrichment (synonyms, POS, sentiment); and HuggingFace for summarization. The system evaluates linguistic accuracy and delivers a real-time dictionary via Spark Structured Streaming.
