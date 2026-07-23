@@ -48,13 +48,13 @@ By combining modern Big Data technologies with Malay NLP resources, the proposed
 
 | Feature | Description |
 |---------|-------------|
-| 📰 **Data Collection** | Automatically crawls Malay sports articles from **Sinar Harian**, performs duplicate detection, and streams articles to Apache Kafka for real-time ingestion. |
-| ⚡ **Distributed Data Processing** | Cleans and preprocesses articles using **Apache Spark** and **HDFS**, including tokenization, stopword removal, duplicate elimination, and English word filtering. |
-| 📚 **Lexicon Construction** | Builds a Malay lexicon by storing processed tokens together with linguistic annotations such as stemmed words, POS tags, word sense, sentiment, and definitions in **MongoDB**. |
-| 🔗 **Lexicon Enrichment** | Enriches the lexicon using **PRPM (DBP)** by retrieving definitions, synonyms, antonyms, hypernyms, hyponyms, meronyms, holonyms, and contextual examples. Semantic relationships are modeled in **Neo4j**. |
-| 😊 **Sentiment Analysis** | Performs word-level and contextual sentiment analysis, generating sentiment scores and labels using Malay NLP models. |
-| 📊 **Lexicon Analytics** | Produces descriptive analytics including lexicon size, POS distribution, word frequency, synonym network, word length, and sentiment distribution. Results are cached using **Redis** for efficient retrieval. |
-| 📡 **Real-Time Streaming** | Utilizes **Spark Structured Streaming** and **Apache Kafka** to continuously process incoming articles, update the lexicon, and provide real-time dictionary search and word frequency analysis. |
+| 📰 **Data Collection** | Crawls Malay sports news from **Sinar Harian** and streams data using **Apache Kafka**. |
+| ⚡ **Distributed Data Processing** | Preprocesses text using **Apache Spark** and **Hadoop HDFS**. |
+| 📚 **Lexicon Construction** | Builds and stores annotated Malay lexical entries in **MongoDB**. |
+| 🔗 **Lexicon Enrichment** | Enriches lexical entries using **PRPM (DBP)** and **Malay WordNet**, with semantic relationships stored in **Neo4j**. |
+| 😊 **Sentiment Analysis** | Performs word-level and contextual sentiment analysis using Malay NLP models. |
+| 📊 **Lexicon Analytics** | Generates lexicon analytics and caches results using **Redis**. |
+| 📡 **Real-Time Streaming** | Supports continuous processing and real-time lexicon updates with **Apache Kafka** and **Spark Structured Streaming**. |
 
 ---
 
@@ -69,12 +69,12 @@ The proposed architecture consists of six sequential stages, covering the comple
 
 | Step | Stage | Description |
 |------|-------|-------------|
-| **1** | 📰⚡ **Data Collection & Preparation** | Crawls Malay sports articles from **Sinar Harian**, streams the scraped articles through **Apache Kafka**, stores the crawled articles in `articles_crawled.txt` and **Hadoop HDFS**, then cleans and preprocesses the data using **Apache Spark**, including text cleaning, tokenization, duplicate removal, stopword filtering, and English word filtering. The processed tokens are exported as `all_tokens.txt` for downstream processing. |
-| **2** | 📚 **Lexicon Creation** | Creates the initial Malay lexicon by importing processed tokens into **MongoDB**, where lexical entries are annotated with **Part-of-Speech (POS)** tags and **sentiment information**. |
-| **3** | 🔗 **Lexicon Enrichment** | Enriches the lexicon using **PRPM (Dewan Bahasa dan Pustaka)** by retrieving definitions, stemmed words, synonyms, antonyms, derived words, hypernyms, hyponyms, meronyms, holonyms, and contextual information. The enriched lexicon is exported as a CSV file and imported into **Neo4j** for graph-based semantic analysis. |
-| **4** | 📊 **Analysis & Evaluation** | Performs lexicon analysis using **Neo4j** and **Redis**, generating descriptive analytics and evaluating the lexicon through intrinsic and extrinsic evaluation metrics. |
-| **5** | 🔄 **Lexicon Maintenance** | Performs incremental crawling by detecting previously collected articles, preventing duplicate entries, and updating the lexicon with newly collected data. |
-| **6** | 📡 **Real-Time Streaming** | Integrates **Apache Kafka** and **Spark Structured Streaming** to enable real-time data streaming between pipeline components and support real-time lexicon updates and analytics. |
+| **1** | 📰⚡ **Data Collection & Preparation** | Crawls **Sinar Harian** sports news, streams data via **Apache Kafka**, stores it in **Hadoop HDFS**, and preprocesses text using **Apache Spark**. |
+| **2** | 📚 **Lexicon Creation** | Creates and annotates lexical entries in **MongoDB** with POS, sentiment, and word sense. |
+| **3** | 🔗 **Lexicon Enrichment** | Enriches lexical entries using **PRPM (DBP)** and **Malay WordNet**, then imports them into **Neo4j**. |
+| **4** | 📊 **Analysis & Evaluation** | Performs lexicon analytics with **Neo4j** and **Redis**, and evaluates the generated lexicon. |
+| **5** | 🔄 **Lexicon Maintenance** | Incrementally updates the lexicon with newly collected articles while preventing duplicates. |
+| **6** | 📡 **Real-Time Streaming** | Uses **Apache Kafka** and **Spark Structured Streaming** for continuous processing and real-time lexicon updates. |
 
 ---
 
